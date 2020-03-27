@@ -6,26 +6,70 @@ import axios from 'axios';
 const OrderForm = () => {
 
 const [formState, setFormState] = useState({
+    name: "",
     size: "",
-    sauce: "",
-    toppings: "", 
+    pepperoni: "",
+    sausage: "",
+    canadian: "",
+    spicy: "",
+    garlic: "",
+    onions: "",
+    green: "",
+    diced: "",
+    black: "",
+    roasted: "",
+    artichoke: "",
+    cheese: "",
+    pineapple: "",
+    extra: "",
+
     sub: "",
 
 });
 const formSchema = yup.object().shape({
+    name: yup.string().required("Must input a name"),
     size: yup.string().required("Please choose a size for your pizza"),
     sauce: yup.string().required("Please choose a sauce for your pizza"),
-    toppings: yup.string().required("Add toppings to your pizza"),
+    pepperoni: yup.string(),
+    sausage: yup.string(),
+    canadian: yup.string(),
+    spicy: yup.string(),
+    garlic: yup.string(),
+    onions: yup.string(),
+    green: yup.string(),
+    diced: yup.string(),
+    black: yup.string(),
+    roasted: yup.string(),
+    artichoke: yup.string(),
+    cheese: yup.string(),
+    pineapple: yup.string(),
+    extra: yup.string(),
     sub: yup.string()
 });
 const [errors, setErrors] = useState({
+    name: "",
     size: "",
     sauce: "",
-    toppings: [], 
+    pepperoni: "",
+    sausage: "",
+    canadian: "",
+    spicy: "",
+    garlic: "",
+    onions: "",
+    green: "",
+    diced: "",
+    black: "",
+    roasted: "",
+    artichoke: "",
+    cheese: "",
+    pineapple: "",
+    extra: "",
     sub: "",
 });
 useEffect(() => {
-    
+    formSchema.isValid(formState).then(valid => {
+        setButtonDisabled(!valid)
+    })
 }, [formState]);
 
 const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -50,13 +94,27 @@ const validateChange = e => {
 };
 const formSubmit = e => {
     e.preventDefault();
-    axios.post("", formState)
+    axios.post("https://reqres.in/api/users", formState)
     .then(response => {
         setPost(response.data);
         setFormState({
+            name: "",
             size: "",
             sauce: "",
-            toppings: [], 
+            pepperoni: "",
+            sausage: "",
+            canadian: "",
+            spicy: "",
+            garlic: "",
+            onions: "",
+            green: "",
+            diced: "",
+            black: "",
+            roasted: "",
+            artichoke: "",
+            cheese: "",
+            pineapple: "",
+            extra: "",
             sub: "",
         })
 
@@ -80,7 +138,18 @@ const inputChange = e => {
 
     return(
         <form onSubmit={formSubmit}>
+            <label htmlFor="name">
+                Name:
+                <input
+                id="name"
+                name="name"
+                value={formState.name}
+                onChange={inputChange}
+                />
+                {errors.name.length > 0 ? <p className="error">{errors.name}</p>:null}
+            </label>
             <fieldset>
+                
             <legend>Choice of Size</legend>
                 
                 <p>Please choose your desired size of pizza.</p> <br/>
@@ -116,29 +185,29 @@ const inputChange = e => {
     <p>Check the types of topppings that you would like on your pizza</p>
     
     
-        <label><input type="checkbox" name="toppings[]" value="pepperoni" onChange={inputChange} /> Pepperoni</label>
-        <label><input type="checkbox" name="toppings[]" value="sausage"onChange={inputChange} /> Sausage</label>
-        <label><input type="checkbox" name="toppings[]" value="canadian bacon" onChange={inputChange}/> Canadian Bacon</label>
-        <label><input type="checkbox" name="toppings[]" value="spicy italian sausage" onChange={inputChange}/> Spicy Italian Sausage</label>
-        <label><input type="checkbox" name="toppings[]" value="garlic chicken" onChange={inputChange}/> Garlic Chicken</label>
-        <label><input type="checkbox" name="toppings[]" value="onions" onChange={inputChange}/> Onions</label>
-        <label><input type="checkbox" name="toppings[]" value="green pepper"onChange={inputChange} />Green Pepper</label>
-        <label><input type="checkbox" name="toppings[]" value="diced tomatos" onChange={inputChange}/>Diced Tomados</label>
-        <label><input type="checkbox" name="toppings[]" value="balck olives" onChange={inputChange}/> Black Olives</label>
-        <label><input type="checkbox" name="toppings[]" value="roasted garlic" onChange={inputChange}/> Roasted Garlic</label>
-        <label><input type="checkbox" name="toppings[]" value="artichoke hearts" onChange={inputChange}/>Artichoke Hearts</label>
-        <label><input type="checkbox" name="toppings[]" value="three cheese" onChange={inputChange}/>Three Cheese</label>
-        <label><input type="checkbox" name="toppings[]" value="pineapple" onChange={inputChange}/>Pineapple</label>
-        <label><input type="checkbox" name="toppings[]" value="extra cheese" onChange={inputChange}/>Extra Cheese</label>
+        <label><input type="checkbox" name="pepperoni" value={formState.pepperoni} onChange={inputChange} /> Pepperoni</label>
+        <label><input type="checkbox" name="sausage" value={formState.sausage} onChange={inputChange} /> Sausage</label>
+        <label><input type="checkbox" name="canadian" value={formState.canadian} onChange={inputChange}/> Canadian Bacon</label>
+        <label><input type="checkbox" name="spicy" value={formState.spicy} onChange={inputChange}/> Spicy Italian Sausage</label>
+        <label><input type="checkbox" name="garlic" value={formState.garlic} onChange={inputChange}/> Garlic Chicken</label>
+        <label><input type="checkbox" name="onions" value={formState.onions} onChange={inputChange}/> Onions</label>
+        <label><input type="checkbox" name="green" value={formState.green} onChange={inputChange} />Green Pepper</label>
+        <label><input type="checkbox" name="diced" value={formState.diced} onChange={inputChange}/>Diced Tomatos</label>
+        <label><input type="checkbox" name="black" value={formState.black} onChange={inputChange}/> Black Olives</label>
+        <label><input type="checkbox" name="roasted" value={formState.roasted} onChange={inputChange}/> Roasted Garlic</label>
+        <label><input type="checkbox" name="artichoke" value={formState.artichoke} onChange={inputChange}/>Artichoke Hearts</label>
+        <label><input type="checkbox" name="three" value={formState.three} onChange={inputChange}/>Three Cheese</label>
+        <label><input type="checkbox" name="pineapple" value={formState.pineapple} onChange={inputChange}/>Pineapple</label>
+        <label><input type="checkbox" name="extra" value={formState.extra} onChange={inputChange}/>Extra Cheese</label>
     
     
     </fieldset>
     <fieldset >
         <legend>Choice of Substitute</legend>
         <p>Choose up to 1</p>
-        <label><input type="checkbox" name="sub" value="gluten free" onChange={inputChange}/>Gluten Free Crust (+$1.00)</label>
+        <label><input type="checkbox" name="sub" value={formState.sub} onChange={inputChange}/>Gluten Free Crust (+$1.00)</label>
     </fieldset>
-        <button  >Place Order</button>
+        <button type="submit" >Place Order</button>
         <pre>{JSON.stringify(post,null, 2)}</pre>
         </form>
 
