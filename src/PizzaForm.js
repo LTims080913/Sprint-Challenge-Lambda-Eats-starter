@@ -8,7 +8,7 @@ const OrderForm = () => {
 const [formState, setFormState] = useState({
     size: "",
     sauce: "",
-    toppings: [], 
+    toppings: "", 
     sub: "",
 
 });
@@ -115,7 +115,7 @@ const inputChange = e => {
     
     <p>Check the types of topppings that you would like on your pizza</p>
     
-    <p>
+    
         <label><input type="checkbox" name="toppings[]" value="pepperoni" onChange={inputChange} /> Pepperoni</label>
         <label><input type="checkbox" name="toppings[]" value="sausage"onChange={inputChange} /> Sausage</label>
         <label><input type="checkbox" name="toppings[]" value="canadian bacon" onChange={inputChange}/> Canadian Bacon</label>
@@ -130,10 +130,10 @@ const inputChange = e => {
         <label><input type="checkbox" name="toppings[]" value="three cheese" onChange={inputChange}/>Three Cheese</label>
         <label><input type="checkbox" name="toppings[]" value="pineapple" onChange={inputChange}/>Pineapple</label>
         <label><input type="checkbox" name="toppings[]" value="extra cheese" onChange={inputChange}/>Extra Cheese</label>
-    </p>
+    
     
     </fieldset>
-    <fieldset onChange={inputChange}>
+    <fieldset >
         <legend>Choice of Substitute</legend>
         <p>Choose up to 1</p>
         <label><input type="checkbox" name="sub" value="gluten free" onChange={inputChange}/>Gluten Free Crust (+$1.00)</label>
