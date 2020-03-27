@@ -30,18 +30,64 @@ useEffect(() => {
     });
 }, [formState]);
 
+const [buttonDisabled, setButtonDisabled] = useState(true);
+const [post, setPost] = useState([]);
 
+const validateChange = e => {
+    yup
+        .reach(formSchema, e.target.name)
+        .validate(e.target.value)
+        .then(valid => {
+            setErrors({
+                ...errors, 
+                [e.target.name]: ""
+            });
+        })
+        .catch(error => {
+            setErrors({
+                ...errors, 
+                [e.target.name]: error.errors
+            });
+        });
+};
+const formSubmit = e => {
+    e.preventDefault();
+    axios.post("", formState)
+    .then(response => {
+        setPost(response.data);
+        setFormState({
+            size: "",
+            sauce: "",
+            toppings: [], 
+            sub: "",
+        })
+
+    })
+    .catch(error => {
+        console.log(error.response)
+    });
+};
+const inputChange = e => {
+    e.persist();
+    const newFormData = {
+        ...formState,
+        [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value
+
+    };
+    validateChange(e);
+    setFormState(newFormData);
+}
 
 
 
     return(
-        <form>
+        <form onSubmit={formSubmit}>
             <fieldset>
             <legend>Choice of Size</legend>
                 
                 <p>Please choose your desired size of pizza.</p> <br/>
 
-                <select id="size" name="size">
+                <select id="size" name="size" onChange={inputChange}>
                     <option value="personal">Personal</option>
                     <option value="small">Small</option>
                     <option value="medium">Medium</option>
@@ -51,10 +97,10 @@ useEffect(() => {
                 </select>
             
             </fieldset>
-            <fieldset>
+            <fieldset onChange={inputChange}>
             <legend>Choice of Sauce</legend>
                  
-                <p>Please choose from the list of sauces below</p><br/>
+                <p>Please choose from the list of sauces below</p>
 
                 <input type="radio" id="original" name="sauce" value="original"/>
                 <label htmlFor="original">Original Marinara</label>
@@ -94,7 +140,7 @@ useEffect(() => {
         <p>Choose up to 1</p>
         <label><input type="checkbox" name="sub" value="gluten free" />Gluten Free Crust (+$1.00)</label>
     </fieldset>
-
+        <button disabled={buttonDisabled} >Place Order</button>
         </form>
 
     )
