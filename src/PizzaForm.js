@@ -25,9 +25,7 @@ const [errors, setErrors] = useState({
     sub: "",
 });
 useEffect(() => {
-    formSchema.isValid(formState).then(valid => {
-        setButtonDisabled(!valid);
-    });
+    
 }, [formState]);
 
 const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -97,50 +95,51 @@ const inputChange = e => {
                 </select>
             
             </fieldset>
-            <fieldset onChange={inputChange}>
+            <fieldset >
             <legend>Choice of Sauce</legend>
                  
                 <p>Please choose from the list of sauces below</p>
 
-                <input type="radio" id="original" name="sauce" value="original"/>
+                <input type="radio" id="original" name="sauce" value="original" onChange={inputChange}/>
                 <label htmlFor="original">Original Marinara</label>
-                <input type="radio" id="garlic" name="sauce" value="garlic"/>
+                <input type="radio" id="garlic" name="sauce" value="garlic" onChange={inputChange}/>
                 <label htmlFor="garlic">Garlic Ranch</label>
-                <input type="radio" id="bbq" name="sauce" value="bbq"/>
+                <input type="radio" id="bbq" name="sauce" value="bbq" onChange={inputChange}/>
                 <label htmlFor="bbq">BBQ Sauce</label>
-                <input type="radio" id="spinach" name="sauce" value="spinach"/>
+                <input type="radio" id="spinach" name="sauce" value="spinach" onChange={inputChange}/>
                 <label htmlFor="spinach">Spinach Alfredo</label>
             
             </fieldset>
-            <fieldset>
+            <fieldset >
         <legend>Add Your Toppings</legend>
     
     <p>Check the types of topppings that you would like on your pizza</p>
     
     <p>
-        <label><input type="checkbox" name="toppings[]" value="pepperoni" /> Pepperoni</label>
-        <label><input type="checkbox" name="toppings[]" value="sausage" /> Sausage</label>
-        <label><input type="checkbox" name="toppings[]" value="canadian bacon" /> Canadian Bacon</label>
-        <label><input type="checkbox" name="toppings[]" value="spicy italian sausage" /> Spicy Italian Sausage</label>
-        <label><input type="checkbox" name="toppings[]" value="garlic chicken" /> Garlic Chicken</label>
-        <label><input type="checkbox" name="toppings[]" value="onions" /> Onions</label>
-        <label><input type="checkbox" name="toppings[]" value="green pepper" />Green Pepper</label>
-        <label><input type="checkbox" name="toppings[]" value="diced tomatos" />Diced Tomados</label>
-        <label><input type="checkbox" name="toppings[]" value="balck olives" /> Black Olives</label>
-        <label><input type="checkbox" name="toppings[]" value="roasted garlic" /> Roasted Garlic</label>
-        <label><input type="checkbox" name="toppings[]" value="artichoke hearts" />Artichoke Hearts</label>
-        <label><input type="checkbox" name="toppings[]" value="three cheese" />Three Cheese</label>
-        <label><input type="checkbox" name="toppings[]" value="pineapple" />Pineapple</label>
-        <label><input type="checkbox" name="toppings[]" value="extra cheese" />Extra Cheese</label>
+        <label><input type="checkbox" name="toppings[]" value="pepperoni" onChange={inputChange} /> Pepperoni</label>
+        <label><input type="checkbox" name="toppings[]" value="sausage"onChange={inputChange} /> Sausage</label>
+        <label><input type="checkbox" name="toppings[]" value="canadian bacon" onChange={inputChange}/> Canadian Bacon</label>
+        <label><input type="checkbox" name="toppings[]" value="spicy italian sausage" onChange={inputChange}/> Spicy Italian Sausage</label>
+        <label><input type="checkbox" name="toppings[]" value="garlic chicken" onChange={inputChange}/> Garlic Chicken</label>
+        <label><input type="checkbox" name="toppings[]" value="onions" onChange={inputChange}/> Onions</label>
+        <label><input type="checkbox" name="toppings[]" value="green pepper"onChange={inputChange} />Green Pepper</label>
+        <label><input type="checkbox" name="toppings[]" value="diced tomatos" onChange={inputChange}/>Diced Tomados</label>
+        <label><input type="checkbox" name="toppings[]" value="balck olives" onChange={inputChange}/> Black Olives</label>
+        <label><input type="checkbox" name="toppings[]" value="roasted garlic" onChange={inputChange}/> Roasted Garlic</label>
+        <label><input type="checkbox" name="toppings[]" value="artichoke hearts" onChange={inputChange}/>Artichoke Hearts</label>
+        <label><input type="checkbox" name="toppings[]" value="three cheese" onChange={inputChange}/>Three Cheese</label>
+        <label><input type="checkbox" name="toppings[]" value="pineapple" onChange={inputChange}/>Pineapple</label>
+        <label><input type="checkbox" name="toppings[]" value="extra cheese" onChange={inputChange}/>Extra Cheese</label>
     </p>
     
     </fieldset>
-    <fieldset>
+    <fieldset onChange={inputChange}>
         <legend>Choice of Substitute</legend>
         <p>Choose up to 1</p>
-        <label><input type="checkbox" name="sub" value="gluten free" />Gluten Free Crust (+$1.00)</label>
+        <label><input type="checkbox" name="sub" value="gluten free" onChange={inputChange}/>Gluten Free Crust (+$1.00)</label>
     </fieldset>
-        <button disabled={buttonDisabled} >Place Order</button>
+        <button  >Place Order</button>
+        <pre>{JSON.stringify(post,null, 2)}</pre>
         </form>
 
     )
